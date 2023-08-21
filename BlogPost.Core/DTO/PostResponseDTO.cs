@@ -14,6 +14,8 @@ namespace BlogPost.Core.DTO
         public string MainContent { get; set; }
         public string? ImageUrl { get; set; }
         public DateTime? DateCreated { get; set; }
+        public DateTime? DateUpdated { get; set; }
+
     }
 
     public static class PostExtension
@@ -26,7 +28,8 @@ namespace BlogPost.Core.DTO
                 Title = post.Title,
                 ImageUrl = post.ImageUrl,
                 MainContent = post.MainContent,
-                DateCreated = post.DateCreated
+                DateCreated = post.DateCreated,
+                DateUpdated = post.DateUpdated, 
             };
         }
     }

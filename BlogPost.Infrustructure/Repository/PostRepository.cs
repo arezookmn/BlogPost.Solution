@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlogPost.Infrustructure.DbContext;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlogPost.Infrustructure.Repository
 {
@@ -23,6 +24,29 @@ namespace BlogPost.Infrustructure.Repository
             post.DateCreated = DateTime.UtcNow;
 
             await _dbContext.Posts.AddAsync(post);
+            await _dbContext.SaveChangesAsync();
+            return post;
+        }
+
+        public async Task<Post> GetPostByIdAsync(Guid postId)
+        {
+            Post post = await _dbContext.Posts.FirstOrDefaultAsync(t => t.PostID == postId);
+            return post;
+        }
+
+        public async Task<Post> UpdatePostAsync(Post post)
+        {
+            var existingPost = await _dbContext.Posts.FirstOrDefaultAsync(t => t.PostID == post.PostID);
+
+            if (existingPost == null) return null;
+
+            existingPost.ImageUrl = post.ImageUrl;  
+            existingPost.MainContent = post.MainContent;    
+            existingPost.Title = post.Title;    
+            existingPost.DateUpdated = DateTime.UtcNow;
+
+            _dbContext.Entry(existingPost).State = EntityState.Modified;
+
             await _dbContext.SaveChangesAsync();
             return post;
         }

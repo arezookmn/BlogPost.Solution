@@ -11,5 +11,8 @@ namespace BlogPost.Core.Domain.RepositoryContracts
     {
         Task<Post> AddPostAsync(Post post);
 
+        Task<Post> UpdatePostAsync(Post post);
+
+        Task<Post> GetPostByIdAsync(Guid postId);
     }
 }

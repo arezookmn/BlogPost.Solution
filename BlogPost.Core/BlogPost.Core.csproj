@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="ServiceContracts\PostServiceInterface\**" />
+    <EmbeddedResource Remove="ServiceContracts\PostServiceInterface\**" />
+    <None Remove="ServiceContracts\PostServiceInterface\**" />
+  </ItemGroup>
+
 </Project>

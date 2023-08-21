@@ -1,6 +1,6 @@
 using BlogPost.Core.Domain.RepositoryContracts;
 using BlogPost.Core.Service.PostService;
-using BlogPost.Core.ServiceContracts.PostServiceInterface;
+using BlogPost.Core.ServiceContracts;
 using BlogPost.Infrustructure.DbContext;
 using BlogPost.Infrustructure.Repository;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddScoped<IPostAdderService, PostAdderService>();
+builder.Services.AddScoped<IPostGetterService, PostGetterService>();
+builder.Services.AddScoped<IPostUpdaterService, PostUpdaterService>();
 builder.Services.AddScoped<IPostRepository, PostRepository>();
 
 

@@ -14,10 +14,10 @@ namespace BlogPost.Core.Domain.Entities
         public string MainContent { get; set; }
         public string? ImageUrl { get; set; }
         public DateTime ? DateCreated { get; set; }
-       // public bool IsPublished { get; set; }
+       public DateTime? DateUpdated { get; set; }
 
-        //public DateTime? DateUpdated { get; set;}
-        //public DateTime? DatePublished { get; set; }
+       // public bool IsPublished { get; set; }
+       //public DateTime? DatePublished { get; set; }
         //public int LikeCount { get; set; }
         //public bool CommentAllowing { get; set; }
         //public List<TagOptions> Tags { get; set; }

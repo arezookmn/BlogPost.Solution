@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using BlogPost.Core.Domain.Entities;
 using BlogPost.Core.Domain.RepositoryContracts;
 using BlogPost.Core.DTO;
-using BlogPost.Core.ServiceContracts.PostServiceInterface;
+using BlogPost.Core.ServiceContracts;
 using Services.Helper;
 
 namespace BlogPost.Core.Service.PostService
