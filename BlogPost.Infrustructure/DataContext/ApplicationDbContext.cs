@@ -19,6 +19,7 @@ namespace BlogPost.Infrustructure.DbContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Post>().HasQueryFilter(p => !p.IsDeleted);
         }
     }
 }

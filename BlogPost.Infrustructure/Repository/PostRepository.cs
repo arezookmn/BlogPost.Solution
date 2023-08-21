@@ -30,7 +30,7 @@ namespace BlogPost.Infrustructure.Repository
 
         public async Task<Post> GetPostByIdAsync(Guid postId)
         {
-            Post post = await _dbContext.Posts.FirstOrDefaultAsync(t => t.PostID == postId);
+            Post? post = await _dbContext.Posts.FirstOrDefaultAsync(t => t.PostID == postId);
             return post;
         }
 
@@ -49,6 +49,19 @@ namespace BlogPost.Infrustructure.Repository
 
             await _dbContext.SaveChangesAsync();
             return post;
+        }
+
+
+        public async Task DeletePostAsync(Post post)
+        {
+            _dbContext.Posts.Remove(post);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task SoftDeletePostAsync(Post post)
+        {
+            post.IsDeleted = true;
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

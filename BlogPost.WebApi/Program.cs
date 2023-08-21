@@ -14,6 +14,7 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<IPostAdderService, PostAdderService>();
 builder.Services.AddScoped<IPostGetterService, PostGetterService>();
 builder.Services.AddScoped<IPostUpdaterService, PostUpdaterService>();
+builder.Services.AddScoped<IPostDeleterService, PostDeleterService>();
 builder.Services.AddScoped<IPostRepository, PostRepository>();
 
 

@@ -11,12 +11,17 @@ namespace BlogPost.WebApi.Controllers.PostControllers
     public class PostController : ControllerBase
     {
         private  readonly IPostAdderService _postAdderService;
-        private readonly IPostUpdaterService _postUpdaterService;   
-        public PostController(IPostAdderService postAdderService, IPostUpdaterService postUpdaterService)
+        private readonly IPostUpdaterService _postUpdaterService; 
+        private readonly IPostDeleterService _postDeleterService;  
+        private readonly IPostGetterService _postGetterService;
+        public PostController(IPostAdderService postAdderService, IPostUpdaterService postUpdaterService, IPostDeleterService postDeleterService, IPostGetterService postGetterService)
         {
             _postAdderService = postAdderService;
             _postUpdaterService = postUpdaterService;   
+            _postDeleterService = postDeleterService;
+            _postGetterService = postGetterService; 
         }
+
         [HttpPost]
         public async Task<ActionResult<PostResponseDTO>> PostBlogPost(CreatePostRequestDTO postRequestDto)
         {
@@ -32,6 +37,18 @@ namespace BlogPost.WebApi.Controllers.PostControllers
             PostResponseDTO postResponse_FromService = await _postUpdaterService.UpdatePost(postRequestDto);
 
             return postResponse_FromService;
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult<bool>> DeletePost(Guid postId)
+        {
+           await _postDeleterService.DeletePostAsync(postId);
+
+           PostResponseDTO? postFromGet = await _postGetterService.GetPostByIdAsync(postId);
+
+           if (postFromGet is  null) return true;
+
+           else return false;
         }
     }
 }

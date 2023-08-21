@@ -14,5 +14,8 @@ namespace BlogPost.Core.Domain.RepositoryContracts
         Task<Post> UpdatePostAsync(Post post);
 
         Task<Post> GetPostByIdAsync(Guid postId);
+
+        Task DeletePostAsync(Post post);
+        Task SoftDeletePostAsync(Post Post);
     }
 }
