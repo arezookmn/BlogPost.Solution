@@ -14,10 +14,12 @@ namespace BlogPost.Core.Service.CommentService
     public class CommentService : ICommentService
     {
         private readonly ICommentRepository _commentRepository;
+        private readonly IPostRepository _postRepository;
 
-        public CommentService(ICommentRepository commentRepository)
+        public CommentService(ICommentRepository commentRepository, IPostRepository postRepository)
         {
-            _commentRepository = commentRepository; 
+            _commentRepository = commentRepository;
+            _postRepository = postRepository;
         }
 
         public async Task<CommentResponseDTO> CreateComment(CreateCommentRequestDTO commentRequestDTO)
@@ -43,6 +45,19 @@ namespace BlogPost.Core.Service.CommentService
 
             await _commentRepository.DeleteComment(CommentFromRepository); 
             return true;
+        }
+
+        public async Task<List<CommentResponseDTO>> GetAllCommentsOfSpecificPost(Guid postId)
+        {
+            Post? postFromRepository = await _postRepository.GetPostByIdAsync(postId);
+
+            if(postFromRepository == null) throw new ArgumentException(); //todo: implement custom EntityNotFoundException
+
+            List<Comment> commentList = await _commentRepository.GetAllCommentsOfSpecificPost(postId);
+
+            List<CommentResponseDTO> commentResponseList = commentList.Select(c => c.ToCommentResponseDto()).ToList();      
+
+            return commentResponseList;
         }
     }
 }

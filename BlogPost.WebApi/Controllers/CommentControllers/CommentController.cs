@@ -27,5 +27,11 @@ namespace BlogPost.WebApi.Controllers.CommentControllers
         {
             return await _commentService.DeleteComment(commentId);
         }
+
+        [HttpGet("{postId}")]
+        public async Task<ActionResult<List<CommentResponseDTO>>> GetAllComments(Guid postId)
+        {
+           return await _commentService.GetAllCommentsOfSpecificPost(postId);
+        }
     }
 }
