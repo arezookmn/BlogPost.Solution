@@ -16,11 +16,13 @@ namespace BlogPost.Core.Domain.Entities
         public DateTime ? DateCreated { get; set; }
         public DateTime? DateUpdated { get; set; }
         public bool IsDeleted { get; set; }
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
+        public bool CommentAllowing { get; set; }
 
+        //public Guid AuthorID { get; set; }
         // public bool IsPublished { get; set; }
         //public DateTime? DatePublished { get; set; }
         //public int LikeCount { get; set; }
-        //public bool CommentAllowing { get; set; }
         //public List<TagOptions> Tags { get; set; }
         //public string? Slug { get; set; }
 

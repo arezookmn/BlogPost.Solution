@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BlogPost.Core.DTO
+namespace BlogPost.Core.DTO.PostDTO
 {
     public class UpdatePostRequestDTO
     {

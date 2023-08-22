@@ -20,9 +20,6 @@ namespace BlogPost.Infrustructure.Repository
         } 
         public async Task<Post> AddPostAsync(Post post)
         {
-            post.PostID = Guid.NewGuid();
-            post.DateCreated = DateTime.UtcNow;
-
             await _dbContext.Posts.AddAsync(post);
             await _dbContext.SaveChangesAsync();
             return post;

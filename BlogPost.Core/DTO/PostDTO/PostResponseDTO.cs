@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BlogPost.Core.Domain.Entities;
 
-namespace BlogPost.Core.DTO
+namespace BlogPost.Core.DTO.PostDTO
 {
     public class PostResponseDTO
     {
@@ -29,7 +29,7 @@ namespace BlogPost.Core.DTO
                 ImageUrl = post.ImageUrl,
                 MainContent = post.MainContent,
                 DateCreated = post.DateCreated,
-                DateUpdated = post.DateUpdated, 
+                DateUpdated = post.DateUpdated,
             };
         }
     }

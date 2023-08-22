@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using BlogPost.Core.Domain.Entities;
 using BlogPost.Core.Domain.RepositoryContracts;
-using BlogPost.Core.DTO;
-using BlogPost.Core.ServiceContracts;
+using BlogPost.Core.DTO.PostDTO;
+using BlogPost.Core.ServiceContracts.PostServicesInterface;
 using Services.Helper;
 
 namespace BlogPost.Core.Service.PostService

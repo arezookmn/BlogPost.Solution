@@ -1,6 +1,6 @@
 ﻿using BlogPost.Core.Domain.Entities;
-using BlogPost.Core.DTO;
-using BlogPost.Core.ServiceContracts;
+using BlogPost.Core.DTO.PostDTO;
+using BlogPost.Core.ServiceContracts.PostServicesInterface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

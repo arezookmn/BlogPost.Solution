@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BlogPost.Core.Domain.Entities;
 
-namespace BlogPost.Core.DTO
+namespace BlogPost.Core.DTO.PostDTO
 {
     public class CreatePostRequestDTO
     {
@@ -22,6 +22,7 @@ namespace BlogPost.Core.DTO
 
         public DateTime? DateUpdated { get; set; } = null;
 
+        public bool CommentAllowing { get; set; }
 
         public Post ToPost()
         {
@@ -30,6 +31,7 @@ namespace BlogPost.Core.DTO
                 Title = Title,
                 MainContent = MainContent,
                 ImageUrl = ImageUrl,
+                CommentAllowing = CommentAllowing
             };
         }
     }

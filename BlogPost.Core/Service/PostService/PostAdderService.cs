@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using BlogPost.Core.Domain.Entities;
 using BlogPost.Core.Domain.RepositoryContracts;
-using BlogPost.Core.DTO;
-using BlogPost.Core.ServiceContracts;
+using BlogPost.Core.DTO.PostDTO;
+using BlogPost.Core.ServiceContracts.PostServicesInterface;
 using Services.Helper;
 
 namespace BlogPost.Core.Service.PostService
@@ -26,8 +26,11 @@ namespace BlogPost.Core.Service.PostService
             ValidationHelper.ModelValidation(requestDto);
 
             //Business validation //todo:adding business validation for adding post
-
             Post post_FromRequest = requestDto.ToPost();
+
+            post_FromRequest.PostID = Guid.NewGuid();
+            post_FromRequest.DateCreated = DateTime.UtcNow;
+
             Post post_FromRepository = await _postRepository.AddPostAsync(post_FromRequest);
 
             PostResponseDTO postResponseDTO = post_FromRepository.ToPostResponse();

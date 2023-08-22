@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BlogPost.Core.DTO;
+using BlogPost.Core.DTO.PostDTO;
 
-namespace BlogPost.Core.ServiceContracts
+namespace BlogPost.Core.ServiceContracts.PostServicesInterface
 {
     public interface IPostGetterService
     {
-        Task<PostResponseDTO> GetPostByIdAsync(Guid postId);    
+        Task<PostResponseDTO> GetPostByIdAsync(Guid postId);
     }
 }

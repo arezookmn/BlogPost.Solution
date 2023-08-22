@@ -1,6 +1,8 @@
 using BlogPost.Core.Domain.RepositoryContracts;
+using BlogPost.Core.Service.CommentService;
 using BlogPost.Core.Service.PostService;
-using BlogPost.Core.ServiceContracts;
+using BlogPost.Core.ServiceContracts.CommentServicesInterface;
+using BlogPost.Core.ServiceContracts.PostServicesInterface;
 using BlogPost.Infrustructure.DbContext;
 using BlogPost.Infrustructure.Repository;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +17,9 @@ builder.Services.AddScoped<IPostAdderService, PostAdderService>();
 builder.Services.AddScoped<IPostGetterService, PostGetterService>();
 builder.Services.AddScoped<IPostUpdaterService, PostUpdaterService>();
 builder.Services.AddScoped<IPostDeleterService, PostDeleterService>();
+builder.Services.AddScoped<ICommentService, CommentService>();
 builder.Services.AddScoped<IPostRepository, PostRepository>();
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 
 
 
