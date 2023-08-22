@@ -20,8 +20,6 @@ namespace BlogPost.Core.DTO.PostDTO
         [Url(ErrorMessage = "Invalid image URL format.")]
         public string? ImageUrl { get; set; }
 
-        public DateTime? DateUpdated { get; set; } = null;
-
         public bool CommentAllowing { get; set; }
 
         public Post ToPost()

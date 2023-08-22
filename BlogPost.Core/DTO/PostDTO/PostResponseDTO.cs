@@ -15,6 +15,7 @@ namespace BlogPost.Core.DTO.PostDTO
         public string? ImageUrl { get; set; }
         public DateTime? DateCreated { get; set; }
         public DateTime? DateUpdated { get; set; }
+        public bool CommentAllowing { get; set; }
 
     }
 
@@ -30,6 +31,7 @@ namespace BlogPost.Core.DTO.PostDTO
                 MainContent = post.MainContent,
                 DateCreated = post.DateCreated,
                 DateUpdated = post.DateUpdated,
+                CommentAllowing = post.CommentAllowing,
             };
         }
     }
