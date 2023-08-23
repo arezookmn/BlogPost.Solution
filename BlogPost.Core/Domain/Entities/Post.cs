@@ -1,6 +1,7 @@
 ﻿using BlogPost.Core.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,12 @@ namespace BlogPost.Core.Domain.Entities
         public bool IsDeleted { get; set; }
         public ICollection<Comment> Comments { get; set; } = new List<Comment>();
         public bool CommentAllowing { get; set; }
+
+        public int CategoryID { get; set; }
+
+        [Required]
+        public Category Category { get; set; }
+
 
         //public Guid AuthorID { get; set; }
         // public bool IsPublished { get; set; }

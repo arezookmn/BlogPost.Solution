@@ -22,6 +22,8 @@ namespace BlogPost.Core.DTO.PostDTO
 
         public bool CommentAllowing { get; set; }
 
+        public int CategoryID { get; set; }
+
         public Post ToPost()
         {
             return new Post
@@ -29,7 +31,8 @@ namespace BlogPost.Core.DTO.PostDTO
                 Title = Title,
                 MainContent = MainContent,
                 ImageUrl = ImageUrl,
-                CommentAllowing = CommentAllowing
+                CommentAllowing = CommentAllowing,
+                CategoryID = CategoryID
             };
         }
     }

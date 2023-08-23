@@ -16,6 +16,8 @@ namespace BlogPost.Core.DTO.PostDTO
         public DateTime? DateCreated { get; set; }
         public DateTime? DateUpdated { get; set; }
         public bool CommentAllowing { get; set; }
+        public int CategoryID { get; set; }
+
 
     }
 
@@ -32,6 +34,7 @@ namespace BlogPost.Core.DTO.PostDTO
                 DateCreated = post.DateCreated,
                 DateUpdated = post.DateUpdated,
                 CommentAllowing = post.CommentAllowing,
+                CategoryID = post.CategoryID,   
             };
         }
     }

@@ -1,6 +1,8 @@
 ﻿using BlogPost.Core.Domain.RepositoryContracts;
+using BlogPost.Core.Service.CategoryServices;
 using BlogPost.Core.Service.CommentService;
 using BlogPost.Core.Service.PostService;
+using BlogPost.Core.ServiceContracts.CategoryServiceInterface;
 using BlogPost.Core.ServiceContracts.CommentServicesInterface;
 using BlogPost.Core.ServiceContracts.PostServicesInterface;
 using BlogPost.Infrustructure.DbContext;
@@ -21,12 +23,14 @@ namespace BlogPost.WebApi.StartupExtension
             services.AddScoped<IPostUpdaterService, PostUpdaterService>();
             services.AddScoped<IPostDeleterService, PostDeleterService>();
             services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<ICategoryItemGetterServiceInterface, CategoryItemGetterService>();
+            services.AddScoped<ICategoryAdminService, CategoryAdminService>();
             services.AddScoped<IPostRepository, PostRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 
-
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
 
