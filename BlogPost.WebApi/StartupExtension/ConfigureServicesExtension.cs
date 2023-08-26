@@ -1,4 +1,5 @@
-﻿using BlogPost.Core.Domain.RepositoryContracts;
+﻿using BlogPost.Core.Domain.IdentityEntities;
+using BlogPost.Core.Domain.RepositoryContracts;
 using BlogPost.Core.Service.CategoryServices;
 using BlogPost.Core.Service.CommentService;
 using BlogPost.Core.Service.PostService;
@@ -7,6 +8,8 @@ using BlogPost.Core.ServiceContracts.CommentServicesInterface;
 using BlogPost.Core.ServiceContracts.PostServicesInterface;
 using BlogPost.Infrustructure.DbContext;
 using BlogPost.Infrustructure.Repository;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlogPost.WebApi.StartupExtension
@@ -36,6 +39,21 @@ namespace BlogPost.WebApi.StartupExtension
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 { options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")); });
+
+
+            services.AddIdentity<ApplicationUser, ApplicationRole>(opt =>
+                {
+                    opt.Password.RequiredLength = 6;
+                    opt.Password.RequireDigit = true;
+                    opt.Password.RequireLowercase = true;
+                    opt.Password.RequireUppercase = false;
+                    opt.Password.RequireNonAlphanumeric = false;
+                })
+                .AddDefaultTokenProviders()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddUserStore<UserStore<ApplicationUser, ApplicationRole, ApplicationDbContext, Guid>>()
+                .AddRoleStore<RoleStore<ApplicationRole, ApplicationDbContext, Guid>>();
+
 
             return services;
         }

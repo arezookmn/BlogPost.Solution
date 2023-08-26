@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlogPost.Core.Domain.IdentityEntities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,5 +21,9 @@ namespace BlogPost.Core.Domain.Entities
         public Post? Post { get; set; }
 
         //public Guid CommentAuthorID { get; set; }
+
+
+        public Guid ApplicationUserId { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }

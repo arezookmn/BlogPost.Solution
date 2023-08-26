@@ -1,4 +1,5 @@
-﻿using BlogPost.Core.Enums;
+﻿using BlogPost.Core.Domain.IdentityEntities;
+using BlogPost.Core.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -26,7 +27,10 @@ namespace BlogPost.Core.Domain.Entities
         public Category Category { get; set; }
 
 
-        //public Guid AuthorID { get; set; }
+        public Guid ApplicationUserId { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }       
+        
+        
         // public bool IsPublished { get; set; }
         //public DateTime? DatePublished { get; set; }
         //public int LikeCount { get; set; }

@@ -4,11 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlogPost.Core.Domain.Entities;
+using BlogPost.Core.Domain.IdentityEntities;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlogPost.Infrustructure.DbContext
 {
-    public class ApplicationDbContext :Microsoft.EntityFrameworkCore.DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
     {
         public virtual DbSet<Post> Posts { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
@@ -27,21 +30,30 @@ namespace BlogPost.Infrustructure.DbContext
             modelBuilder.Entity<Comment>().HasQueryFilter(c => !c.IsDeleted);
 
             modelBuilder.Entity<Comment>()
-                .HasOne(c => c.Post)           // Comment has one Post
-                .WithMany(p => p.Comments)     // Post has many Comments
-                .HasForeignKey(c => c.PostID) // Foreign key relationship
-                .IsRequired(false); // Mark the relationship as optional
+                .HasOne(c => c.Post)
+                .WithMany(p => p.Comments)  
+                .HasForeignKey(c => c.PostID) 
+                .IsRequired(false); 
 
             modelBuilder.Entity<Post>()
-                .HasOne(p => p.Category)     // Post has one Category
-                .WithMany(c => c.Posts)      // Category has many Posts
-                .HasForeignKey(p => p.CategoryID); // Foreign key relationship
+                .HasOne(p => p.Category)     
+                .WithMany(c => c.Posts)     
+                .HasForeignKey(p => p.CategoryID);
 
 
             modelBuilder.Entity<Category>()
                 .Property(c => c.CategoryID)
                 .ValueGeneratedOnAdd();
 
+            modelBuilder.Entity<Post>()
+                .HasOne(p => p.ApplicationUser)
+                .WithMany(u => u.Posts)
+                .HasForeignKey(p => p.ApplicationUserId);
+
+            modelBuilder.Entity<Comment>()
+                .HasOne(c => c.ApplicationUser)
+                .WithMany(u => u.Comments)
+                .HasForeignKey(c => c.ApplicationUserId);
         }
     }
 }
