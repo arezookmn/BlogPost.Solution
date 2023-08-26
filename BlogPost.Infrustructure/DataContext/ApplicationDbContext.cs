@@ -4,8 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlogPost.Core.Domain.Entities;
-using BlogPost.Core.Domain.IdentityEntities;
-using Microsoft.AspNet.Identity.EntityFramework;
+using BlogPost.Core.Domain.Entities.IdentityEntities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

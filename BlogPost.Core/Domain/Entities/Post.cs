@@ -1,4 +1,4 @@
-﻿using BlogPost.Core.Domain.IdentityEntities;
+﻿using BlogPost.Core.Domain.Entities.IdentityEntities;
 using BlogPost.Core.Enums;
 using System;
 using System.Collections.Generic;

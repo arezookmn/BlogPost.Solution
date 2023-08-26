@@ -1,4 +1,4 @@
-﻿using BlogPost.Core.Domain.IdentityEntities;
+﻿using BlogPost.Core.Domain.Entities.IdentityEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

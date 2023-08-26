@@ -1,4 +1,4 @@
-﻿using BlogPost.Core.Domain.IdentityEntities;
+﻿using BlogPost.Core.Domain.Entities.IdentityEntities;
 using BlogPost.Core.Domain.RepositoryContracts;
 using BlogPost.Core.Service.CategoryServices;
 using BlogPost.Core.Service.CommentService;

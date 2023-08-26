@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlogPost.Core.Domain.Entities;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNetCore.Identity;
 
-namespace BlogPost.Core.Domain.IdentityEntities
+namespace BlogPost.Core.Domain.Entities.IdentityEntities
 {
     public class ApplicationUser : IdentityUser<Guid>
     {
