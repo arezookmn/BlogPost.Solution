@@ -2,9 +2,11 @@
 using BlogPost.Core.Domain.RepositoryContracts;
 using BlogPost.Core.Service.CategoryServices;
 using BlogPost.Core.Service.CommentService;
+using BlogPost.Core.Service.IdentityService;
 using BlogPost.Core.Service.PostService;
 using BlogPost.Core.ServiceContracts.CategoryServiceInterface;
 using BlogPost.Core.ServiceContracts.CommentServicesInterface;
+using BlogPost.Core.ServiceContracts.IdentityServiceContracts;
 using BlogPost.Core.ServiceContracts.PostServicesInterface;
 using BlogPost.Infrustructure.DbContext;
 using BlogPost.Infrustructure.Repository;
@@ -28,6 +30,7 @@ namespace BlogPost.WebApi.StartupExtension
             services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<ICategoryItemGetterServiceInterface, CategoryItemGetterService>();
             services.AddScoped<ICategoryAdminService, CategoryAdminService>();
+            services.AddTransient<IJwtService, JwtService>();
             services.AddScoped<IPostRepository, PostRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();

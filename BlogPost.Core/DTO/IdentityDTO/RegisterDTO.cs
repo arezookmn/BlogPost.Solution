@@ -17,14 +17,14 @@ namespace BlogPost.Core.DTO.IdentityDTO
 
         [Required(ErrorMessage = "Email cant be blank")]
         [EmailAddress(ErrorMessage = "Your email not in correct format")]
-        //[Remote(action: "IsEmailAlreadyRegistered", controller: "Account", ErrorMessage = "Email is already in use")]
+        [Remote(action: "IsEmailAlreadyRegistered", controller: "Account", ErrorMessage = "Email is already in use")]
         public string Email { get; set; }
 
 
         [Required(ErrorMessage = "Phone can't be blank")]
         [RegularExpression("^[0-9]*$", ErrorMessage = "Phone number should contain numbers only")]
         [DataType(DataType.PhoneNumber)]
-        //[Remote("IsPhoneNumberAvailable", "Account", ErrorMessage = "Phone number is already in use.")]
+        [Remote("IsPhoneNumberAvailable", "Account", ErrorMessage = "Phone number is already in use.")]
         public string PhoneNumber { get; set; }
 
         [Required(ErrorMessage = "Password cant be blank")]
