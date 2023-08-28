@@ -40,8 +40,6 @@ namespace BlogPost.WebApi.StartupExtension
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
 
-
-            
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
 

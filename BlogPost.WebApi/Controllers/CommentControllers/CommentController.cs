@@ -1,10 +1,12 @@
 ﻿using BlogPost.Core.DTO.CommentDTO;
 using BlogPost.Core.ServiceContracts.CommentServicesInterface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogPost.WebApi.Controllers.CommentControllers
 {
+    [Authorize(Roles = "User")]
     [Route("api/[controller]")]
     [ApiController]
     public class CommentController : ControllerBase

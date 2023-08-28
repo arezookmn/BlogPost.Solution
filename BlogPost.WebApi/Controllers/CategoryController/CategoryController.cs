@@ -1,8 +1,10 @@
 ﻿using BlogPost.Core.DTO.PostDTO;
 using BlogPost.Core.Service.CategoryServices;
 using BlogPost.Core.ServiceContracts.CategoryServiceInterface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace BlogPost.WebApi.Controllers.CategoryController
 {

@@ -1,11 +1,14 @@
 ﻿using BlogPost.Core.Domain.Entities;
 using BlogPost.Core.DTO.PostDTO;
 using BlogPost.Core.ServiceContracts.PostServicesInterface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace BlogPost.WebApi.Controllers.PostControllers
 {
+    [Authorize(Roles = "Author")]
     [Route("api/[controller]")]
     [ApiController]
     public class PostController : ControllerBase

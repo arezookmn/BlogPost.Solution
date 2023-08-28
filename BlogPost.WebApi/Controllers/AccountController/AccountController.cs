@@ -48,7 +48,7 @@ namespace BlogPost.WebApi.Controllers.AccountController
                 {
                     return NoContent();
                 }
-                var authenticationResponse = _jwtService.CreateJwtToken(user);
+                var authenticationResponse = await _jwtService.CreateJwtToken(user);
 
                 return Ok(authenticationResponse);
             }
@@ -120,7 +120,7 @@ namespace BlogPost.WebApi.Controllers.AccountController
             {
                 await CheckAndAddRoleAsync(user, roleName);
                 await _signInManager.SignInAsync(user: user, isPersistent: false);
-                var authenticationResponse = _jwtService.CreateJwtToken(user);
+                var authenticationResponse = await _jwtService.CreateJwtToken(user);
 
                 return Ok(authenticationResponse);
             }

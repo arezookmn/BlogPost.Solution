@@ -2,11 +2,14 @@
 using BlogPost.Core.DTO.CategoryDTO;
 using BlogPost.Core.DTO.PostDTO;
 using BlogPost.Core.ServiceContracts.CategoryServiceInterface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace BlogPost.WebApi.Controllers.CategoryController
 {
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class AdminCategoryController : ControllerBase
