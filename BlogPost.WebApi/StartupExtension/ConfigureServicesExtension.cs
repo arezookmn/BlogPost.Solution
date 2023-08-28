@@ -1,4 +1,6 @@
-﻿using BlogPost.Core.Domain.Entities.IdentityEntities;
+﻿using System.Text;
+using System.Text.Unicode;
+using BlogPost.Core.Domain.Entities.IdentityEntities;
 using BlogPost.Core.Domain.RepositoryContracts;
 using BlogPost.Core.Service.CategoryServices;
 using BlogPost.Core.Service.CommentService;
@@ -10,9 +12,12 @@ using BlogPost.Core.ServiceContracts.IdentityServiceContracts;
 using BlogPost.Core.ServiceContracts.PostServicesInterface;
 using BlogPost.Infrustructure.DbContext;
 using BlogPost.Infrustructure.Repository;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace BlogPost.WebApi.StartupExtension
 {
@@ -57,6 +62,33 @@ namespace BlogPost.WebApi.StartupExtension
                 .AddUserStore<UserStore<ApplicationUser, ApplicationRole, ApplicationDbContext, Guid>>()
                 .AddRoleStore<RoleStore<ApplicationRole, ApplicationDbContext, Guid>>();
 
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidateAudience = true,
+                        ValidAudience = configuration["Jwt:Audience"],
+                        ValidateIssuer = true,
+                        ValidIssuer = configuration["Jwt:Issuer"],
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey =
+                            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:SecretKey"])),
+
+
+                    };
+                });
+
+            services.AddAuthorization(options =>
+            {
+
+            });
 
             return services;
         }

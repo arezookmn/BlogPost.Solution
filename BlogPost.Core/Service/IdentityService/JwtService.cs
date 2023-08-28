@@ -50,7 +50,7 @@ namespace BlogPost.Core.Service.IdentityService
             JwtSecurityTokenHandler jwtTokenHandler = new JwtSecurityTokenHandler();
             string token = jwtTokenHandler.WriteToken(tokenGenerator);
 
-            new AuthenticationResponse()
+            return new AuthenticationResponse()
             {
                 FullName = user.FullName,
                 Email = user.Email,

@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BlogPost.Core.Enums;
 
 namespace BlogPost.Core.DTO.IdentityDTO
 {
@@ -38,6 +39,9 @@ namespace BlogPost.Core.DTO.IdentityDTO
         public string ConfirmPassword { get; set; }
 
         public DateTime RegistrationDate { get; set; } = DateTime.UtcNow; // Default value set to current UTC time
+
+        [Required]
+        public string Role { get; set; } = UserTypeOptions.User.ToString();
 
     }
 }
