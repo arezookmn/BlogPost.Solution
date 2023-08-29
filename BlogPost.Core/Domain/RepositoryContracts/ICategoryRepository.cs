@@ -9,7 +9,7 @@ namespace BlogPost.Core.Domain.RepositoryContracts
 {
     public interface ICategoryRepository
     {
-        Task<List<Post>> GetPostsOfCategory(int categoryId);
+        Task<List<Article>> GetArticlesOfCategory(int categoryId);
         Task<Category> GetCategoryById(int categoryId);
 
         Task<Category> AddCategory(Category category);

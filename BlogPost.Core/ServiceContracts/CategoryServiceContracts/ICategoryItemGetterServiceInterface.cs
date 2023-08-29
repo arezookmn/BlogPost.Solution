@@ -9,6 +9,6 @@ namespace BlogPost.Core.ServiceContracts.CategoryServiceInterface
 {
     public interface ICategoryItemGetterServiceInterface
     {
-        Task<List<PostResponseDTO>> GetPostsOfCategory(int categoryId);
+        Task<List<ArticleResponseDTO>> GetPostsOfCategory(int categoryId);
     }
 }

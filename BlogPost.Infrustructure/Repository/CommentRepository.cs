@@ -32,9 +32,9 @@ namespace BlogPost.Infrustructure.Repository
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<List<Comment>> GetAllCommentsOfSpecificPost(Guid postId)
+        public async Task<List<Comment>> GetAllCommentsOfSpecificArticle(Guid articleId)
         {
-            return await _dbContext.Comments.Where(p => p.PostID == postId).ToListAsync();
+            return await _dbContext.Comments.Where(p => p.PostID == articleId).ToListAsync();
         }
 
         public async Task<Comment> GetCommentById(Guid commentId)

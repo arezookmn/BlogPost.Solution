@@ -9,10 +9,11 @@ using System.Threading.Tasks;
 
 namespace BlogPost.Core.Domain.Entities
 {
-    public class Post
+    public class Article
     {
-        public Guid PostID { get; set; }
-        public string Title { get; set; }    
+        public Guid ArticleID { get; set; }
+        public string Title { get; set; }   
+        public string ShortDescription { get; set; }
         public string MainContent { get; set; }
         public string? ImageUrl { get; set; }
         public DateTime ? DateCreated { get; set; }
@@ -25,15 +26,14 @@ namespace BlogPost.Core.Domain.Entities
 
         [Required]
         public Category Category { get; set; }
-
-
+        public int LikeCount { get; set; }
         public Guid ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }       
         
-        
+        public int TimeToRead { get; set; }
+
         // public bool IsPublished { get; set; }
         //public DateTime? DatePublished { get; set; }
-        //public int LikeCount { get; set; }
         //public List<TagOptions> Tags { get; set; }
         //public string? Slug { get; set; }
 

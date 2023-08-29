@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BlogPost.Core.DTO.PostDTO;
 
 namespace BlogPost.Core.ServiceContracts.PostServicesInterface
 {
-    public interface IPostDeleterService
+    public interface IArticleUpdaterService
     {
-        Task SoftDeletePostAsync(Guid postId);
-        Task DeletePostAsync(Guid postId);
+        Task<ArticleResponseDTO> UpdateArticle(UpdateArticleRequestDTO requestDto);
     }
 }

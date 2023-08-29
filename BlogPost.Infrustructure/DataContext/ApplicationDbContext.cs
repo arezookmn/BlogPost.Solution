@@ -12,7 +12,7 @@ namespace BlogPost.Infrustructure.DbContext
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
     {
-        public virtual DbSet<Post> Posts { get; set; }
+        public virtual DbSet<Article> Articles { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
 
         public virtual DbSet<Category> Categories { get; set; } 
@@ -24,7 +24,7 @@ namespace BlogPost.Infrustructure.DbContext
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Post>().HasQueryFilter(p => !p.IsDeleted);
+            modelBuilder.Entity<Article>().HasQueryFilter(p => !p.IsDeleted);
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Comment>().HasQueryFilter(c => !c.IsDeleted);
 
@@ -34,7 +34,7 @@ namespace BlogPost.Infrustructure.DbContext
                 .HasForeignKey(c => c.PostID) 
                 .IsRequired(false); 
 
-            modelBuilder.Entity<Post>()
+            modelBuilder.Entity<Article>()
                 .HasOne(p => p.Category)     
                 .WithMany(c => c.Posts)     
                 .HasForeignKey(p => p.CategoryID);
@@ -44,7 +44,7 @@ namespace BlogPost.Infrustructure.DbContext
                 .Property(c => c.CategoryID)
                 .ValueGeneratedOnAdd();
 
-            modelBuilder.Entity<Post>()
+            modelBuilder.Entity<Article>()
                 .HasOne(p => p.ApplicationUser)
                 .WithMany(u => u.Posts)
                 .HasForeignKey(p => p.ApplicationUserId);

@@ -13,7 +13,7 @@ namespace BlogPost.Core.Domain.Entities
         public string CategoryName { get; set; }
         public string CategoryDescription { get; set; }
 
-        public ICollection<Post> Posts { get; set; } = new List<Post>();
+        public ICollection<Article> Posts { get; set; } = new List<Article>();
 
     }
 }

@@ -16,7 +16,7 @@ namespace BlogPost.Core.Domain.RepositoryContracts
 
         Task<Comment> GetCommentById(Guid commentId);
 
-        Task<List<Comment>> GetAllCommentsOfSpecificPost(Guid postId);
+        Task<List<Comment>> GetAllCommentsOfSpecificArticle(Guid articleId);
 
     }
 }

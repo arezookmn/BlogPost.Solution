@@ -17,15 +17,15 @@ namespace BlogPost.Core.Service.CategoryServices
         {
             _categoryRepository = categoryRepository;
         }
-        public async Task<List<PostResponseDTO>> GetPostsOfCategory(int categoryId)
+        public async Task<List<ArticleResponseDTO>> GetPostsOfCategory(int categoryId)
         {
             Category category = await _categoryRepository.GetCategoryById(categoryId);
 
-            List<Post> categoryPosts =await _categoryRepository.GetPostsOfCategory(categoryId);
+            List<Article> categoryArticles =await _categoryRepository.GetArticlesOfCategory(categoryId);
 
-            List<PostResponseDTO> categoryPostDtos = categoryPosts.Select(p => p.ToPostResponse()).ToList();
+            List<ArticleResponseDTO> categoryArticlesDtos = categoryArticles.Select(p => p.ToArticleResponse()).ToList();
 
-            return categoryPostDtos;
+            return categoryArticlesDtos;
         }
     }
 }

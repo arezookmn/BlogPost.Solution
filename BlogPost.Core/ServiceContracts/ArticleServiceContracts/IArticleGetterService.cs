@@ -1,15 +1,14 @@
-﻿using BlogPost.Core.DTO.PostDTO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BlogPost.Core.DTO.PostDTO;
 
 namespace BlogPost.Core.ServiceContracts.PostServicesInterface
 {
-    public interface IPostAdderService
+    public interface IArticleGetterService
     {
-        Task<PostResponseDTO> CreatePostAsync(CreatePostRequestDTO requestDto);
-
+        Task<ArticleResponseDTO> GetArticleByIdAsync(Guid articleId);
     }
 }

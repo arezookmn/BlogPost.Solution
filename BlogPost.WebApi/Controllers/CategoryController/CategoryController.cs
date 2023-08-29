@@ -21,7 +21,7 @@ namespace BlogPost.WebApi.Controllers.CategoryController
 
         [HttpGet]
         //todo: adding filter and pagination - filter by date name author
-        public async Task<ActionResult<List<PostResponseDTO>>> GetPostsOfCategory(int categoryId)
+        public async Task<ActionResult<List<ArticleResponseDTO>>> GetPostsOfCategory(int categoryId)
         {
             return await _categoryitemGetterService
                 .GetPostsOfCategory(categoryId);

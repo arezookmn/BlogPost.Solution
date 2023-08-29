@@ -28,15 +28,15 @@ namespace BlogPost.WebApi.StartupExtension
         {
 
             services.AddControllers();
-            services.AddScoped<IPostAdderService, PostAdderService>();
-            services.AddScoped<IPostGetterService, PostGetterService>();
-            services.AddScoped<IPostUpdaterService, PostUpdaterService>();
-            services.AddScoped<IPostDeleterService, PostDeleterService>();
+            services.AddScoped<IArticleAdderService, ArticleAdderService>();
+            services.AddScoped<IArticleGetterService, ArticleGetterService>();
+            services.AddScoped<IArticleUpdaterService, ArticleUpdaterService>();
+            services.AddScoped<IArticleDeleterService, ArticleDeleterService>();
             services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<ICategoryItemGetterServiceInterface, CategoryItemGetterService>();
             services.AddScoped<ICategoryAdminService, CategoryAdminService>();
             services.AddTransient<IJwtService, JwtService>();
-            services.AddScoped<IPostRepository, PostRepository>();
+            services.AddScoped<IArticleRepository, ArticleRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
 
@@ -86,6 +86,19 @@ namespace BlogPost.WebApi.StartupExtension
             services.AddAuthorization(options =>
             {
 
+            });
+
+
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAnyOrigin",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader();
+                    });
             });
 
             return services;

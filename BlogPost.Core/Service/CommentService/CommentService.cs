@@ -14,12 +14,12 @@ namespace BlogPost.Core.Service.CommentService
     public class CommentService : ICommentService
     {
         private readonly ICommentRepository _commentRepository;
-        private readonly IPostRepository _postRepository;
+        private readonly IArticleRepository _articleRepository;
 
-        public CommentService(ICommentRepository commentRepository, IPostRepository postRepository)
+        public CommentService(ICommentRepository commentRepository, IArticleRepository articleRepository)
         {
             _commentRepository = commentRepository;
-            _postRepository = postRepository;
+            _articleRepository = articleRepository;
         }
 
         public async Task<CommentResponseDTO> CreateComment(CreateCommentRequestDTO commentRequestDTO)
@@ -47,13 +47,13 @@ namespace BlogPost.Core.Service.CommentService
             return true;
         }
 
-        public async Task<List<CommentResponseDTO>> GetAllCommentsOfSpecificPost(Guid postId)
+        public async Task<List<CommentResponseDTO>> GetAllCommentsOfSpecificPost(Guid articleId)
         {
-            Post? postFromRepository = await _postRepository.GetPostByIdAsync(postId);
+            Article? articleFromRepository = await _articleRepository.GetArticleByIdAsync(articleId);
 
-            if(postFromRepository == null) throw new ArgumentException(); //todo: implement custom EntityNotFoundException
+            if(articleFromRepository == null) throw new ArgumentException(); //todo: implement custom EntityNotFoundException
 
-            List<Comment> commentList = await _commentRepository.GetAllCommentsOfSpecificPost(postId);
+            List<Comment> commentList = await _commentRepository.GetAllCommentsOfSpecificArticle(articleId);
 
             List<CommentResponseDTO> commentResponseList = commentList.Select(c => c.ToCommentResponseDto()).ToList();      
 

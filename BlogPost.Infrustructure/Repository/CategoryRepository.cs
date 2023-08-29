@@ -31,9 +31,9 @@ namespace BlogPost.Infrustructure.Repository
             return await _dbContext.Categories.FirstOrDefaultAsync(c => c.CategoryID == categoryId);
         }
 
-        public async Task<List<Post>> GetPostsOfCategory(int categoryId)
+        public async Task<List<Article>> GetArticlesOfCategory(int categoryId)
         {
-            return await _dbContext.Posts
+            return await _dbContext.Articles
                 .Where(p => p.CategoryID == categoryId)
                 .ToListAsync();
         }
