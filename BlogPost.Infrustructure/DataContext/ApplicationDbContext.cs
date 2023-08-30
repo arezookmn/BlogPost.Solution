@@ -31,7 +31,7 @@ namespace BlogPost.Infrustructure.DbContext
             modelBuilder.Entity<Comment>()
                 .HasOne(c => c.Post)
                 .WithMany(p => p.Comments)  
-                .HasForeignKey(c => c.PostID) 
+                .HasForeignKey(c => c.ArticleID) 
                 .IsRequired(false); 
 
             modelBuilder.Entity<Article>()

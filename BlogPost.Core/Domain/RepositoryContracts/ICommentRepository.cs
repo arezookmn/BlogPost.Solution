@@ -18,5 +18,7 @@ namespace BlogPost.Core.Domain.RepositoryContracts
 
         Task<List<Comment>> GetAllCommentsOfSpecificArticle(Guid articleId);
 
+        Task<Comment> EditComment(Comment comment);
+
     }
 }

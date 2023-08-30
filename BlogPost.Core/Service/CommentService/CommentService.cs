@@ -47,17 +47,35 @@ namespace BlogPost.Core.Service.CommentService
             return true;
         }
 
-        public async Task<List<CommentResponseDTO>> GetAllCommentsOfSpecificPost(Guid articleId)
+        public async Task<List<CommentResponseDTO>> GetAllCommentsOfSpecificArticle(Guid articleId)
         {
             Article? articleFromRepository = await _articleRepository.GetArticleByIdAsync(articleId);
 
-            if(articleFromRepository == null) throw new ArgumentException(); //todo: implement custom EntityNotFoundException
+            if (articleFromRepository == null)
+                throw new ArgumentException(); //todo: implement custom EntityNotFoundException
 
             List<Comment> commentList = await _commentRepository.GetAllCommentsOfSpecificArticle(articleId);
 
-            List<CommentResponseDTO> commentResponseList = commentList.Select(c => c.ToCommentResponseDto()).ToList();      
+            List<CommentResponseDTO> commentResponseList = commentList.Select(c => c.ToCommentResponseDto()).ToList();
 
             return commentResponseList;
         }
+
+        public async Task<CommentResponseDTO> UpdateComment(Guid commentId, UpdateCommentRequestDTO requestDto)
+        {
+            ValidationHelper.ModelValidation(requestDto);
+
+            Comment? existComment = await _commentRepository.GetCommentById(commentId);
+
+            if (existComment == null) return null; //todo: handel that condition 
+
+            existComment.CommentText = requestDto.CommentText;
+            existComment.NameOfCommentAuthor = requestDto.NameOfCommentAuthor;
+
+            CommentResponseDTO commentResponseDto = existComment.ToCommentResponseDto();
+
+            return commentResponseDto;
+        }
+
     }
 }

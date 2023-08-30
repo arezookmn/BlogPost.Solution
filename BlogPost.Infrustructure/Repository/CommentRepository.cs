@@ -34,12 +34,19 @@ namespace BlogPost.Infrustructure.Repository
 
         public async Task<List<Comment>> GetAllCommentsOfSpecificArticle(Guid articleId)
         {
-            return await _dbContext.Comments.Where(p => p.PostID == articleId).ToListAsync();
+            return await _dbContext.Comments.Where(p => p.ArticleID == articleId).ToListAsync();
         }
 
         public async Task<Comment> GetCommentById(Guid commentId)
         {
             return await _dbContext.Comments.FirstOrDefaultAsync(c => c.CommentID == commentId);
+        }
+
+        public async Task<Comment> EditComment(Comment comment)
+        {
+            _dbContext.Comments.Update(comment);
+            await _dbContext.SaveChangesAsync();
+            return comment;
         }
     }
 }

@@ -4,14 +4,12 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BlogPost.Core.Domain.Entities;
 
 namespace BlogPost.Core.DTO.CommentDTO
 {
-    public class CreateCommentRequestDTO
+    public class UpdateCommentRequestDTO
     {
-        [Required(ErrorMessage = "The PostID is required.")]
-        public Guid ArticleID { get; set; }
+        public Guid CommentID { get; set; }
 
         [Required(ErrorMessage = "The CommentText is required.")]
         [StringLength(500, MinimumLength = 1, ErrorMessage = "The CommentText must be between {2} and {1} characters.")]
@@ -19,19 +17,5 @@ namespace BlogPost.Core.DTO.CommentDTO
 
         [StringLength(100, ErrorMessage = "The NameOfCommentAuthor cannot exceed {1} characters.")]
         public string NameOfCommentAuthor { get; set; } = "Unknown";
-
-
-        public Comment ToComment()
-        {
-            return new Comment()
-            {
-                ArticleID = ArticleID,
-                CommentText = CommentText,
-                NameOfCommentAuthor = NameOfCommentAuthor,
-            };
-        }
-
     }
-
-
 }

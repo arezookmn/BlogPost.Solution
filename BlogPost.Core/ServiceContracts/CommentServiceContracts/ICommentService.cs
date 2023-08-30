@@ -13,7 +13,9 @@ namespace BlogPost.Core.ServiceContracts.CommentServicesInterface
 
         Task<bool> DeleteComment(Guid commentId);
 
-        Task<List<CommentResponseDTO>> GetAllCommentsOfSpecificPost(Guid postId);
+        Task<List<CommentResponseDTO>> GetAllCommentsOfSpecificArticle(Guid articleId);
+
+        Task<CommentResponseDTO> UpdateComment(Guid commentId, UpdateCommentRequestDTO requestDto);
 
     }
 }

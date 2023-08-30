@@ -2,13 +2,14 @@
 using System.Text.Unicode;
 using BlogPost.Core.Domain.Entities.IdentityEntities;
 using BlogPost.Core.Domain.RepositoryContracts;
+using BlogPost.Core.Service.ArticleService;
 using BlogPost.Core.Service.CategoryServices;
 using BlogPost.Core.Service.CommentService;
 using BlogPost.Core.Service.IdentityService;
+using BlogPost.Core.ServiceContracts.ArticleServiceContracts;
 using BlogPost.Core.ServiceContracts.CategoryServiceInterface;
 using BlogPost.Core.ServiceContracts.CommentServicesInterface;
 using BlogPost.Core.ServiceContracts.IdentityServiceContracts;
-using BlogPost.Core.ServiceContracts.PostServicesInterface;
 using BlogPost.Infrustructure.DbContext;
 using BlogPost.Infrustructure.Repository;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -27,10 +28,7 @@ namespace BlogPost.WebApi.StartupExtension
         {
 
             services.AddControllers();
-            services.AddScoped<IArticleAdderService, ArticleAdderService>();
-            services.AddScoped<IArticleGetterService, ArticleGetterService>();
-            services.AddScoped<IArticleUpdaterService, ArticleUpdaterService>();
-            services.AddScoped<IArticleDeleterService, ArticleDeleterService>();
+            services.AddScoped<IArticleService, ArticleService>();
             services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<ICategoryItemGetterServiceInterface, CategoryItemGetterService>();
             services.AddScoped<ICategoryAdminService, CategoryAdminService>();

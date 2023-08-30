@@ -10,7 +10,7 @@ namespace BlogPost.Core.Domain.Entities
     public class Comment
     {
         public Guid CommentID { get; set; }
-        public Guid PostID { get; set; }
+        public Guid ArticleID { get; set; }
         public string CommentText { get; set; }
         public string? NameOfCommentAuthor { get; set; } = "Unknown";
         public bool IsDeleted { get; set; }

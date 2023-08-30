@@ -30,10 +30,22 @@ namespace BlogPost.WebApi.Controllers.CommentControllers
             return await _commentService.DeleteComment(commentId);
         }
 
-        [HttpGet("{postId}")]
-        public async Task<ActionResult<List<CommentResponseDTO>>> GetAllComments(Guid postId)
+        [HttpGet("{articleId}")]
+        public async Task<ActionResult<List<CommentResponseDTO>>> GetAllComments(Guid articleId)
         {
-           return await _commentService.GetAllCommentsOfSpecificPost(postId);
+           return await _commentService.GetAllCommentsOfSpecificArticle(articleId);
+        }
+
+
+        [HttpPut("Edit/{commentId}")]
+        public async Task<ActionResult<CommentResponseDTO>> UpdateComment(Guid commentId,UpdateCommentRequestDTO commentRequest)
+        {
+            if (commentId != commentRequest.CommentID)
+            {
+                return BadRequest();
+            }
+
+            return await _commentService.UpdateComment(commentId, commentRequest);
         }
     }
 }
