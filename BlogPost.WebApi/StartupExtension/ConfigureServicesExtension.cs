@@ -5,7 +5,6 @@ using BlogPost.Core.Domain.RepositoryContracts;
 using BlogPost.Core.Service.CategoryServices;
 using BlogPost.Core.Service.CommentService;
 using BlogPost.Core.Service.IdentityService;
-using BlogPost.Core.Service.PostService;
 using BlogPost.Core.ServiceContracts.CategoryServiceInterface;
 using BlogPost.Core.ServiceContracts.CommentServicesInterface;
 using BlogPost.Core.ServiceContracts.IdentityServiceContracts;
