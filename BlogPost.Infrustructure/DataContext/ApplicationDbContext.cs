@@ -15,7 +15,9 @@ namespace BlogPost.Infrustructure.DbContext
         public virtual DbSet<Article> Articles { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
 
-        public virtual DbSet<Category> Categories { get; set; } 
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<UserLike> UserLikes { get; set; }
+
         public ApplicationDbContext (DbContextOptions<ApplicationDbContext> options
         ) : base(options) { }
 
@@ -29,14 +31,14 @@ namespace BlogPost.Infrustructure.DbContext
             modelBuilder.Entity<Comment>().HasQueryFilter(c => !c.IsDeleted);
 
             modelBuilder.Entity<Comment>()
-                .HasOne(c => c.Post)
+                .HasOne(c => c.Article)
                 .WithMany(p => p.Comments)  
                 .HasForeignKey(c => c.ArticleID) 
                 .IsRequired(false); 
 
             modelBuilder.Entity<Article>()
                 .HasOne(p => p.Category)     
-                .WithMany(c => c.Posts)     
+                .WithMany(c => c.Articles)     
                 .HasForeignKey(p => p.CategoryID);
 
 
@@ -46,13 +48,28 @@ namespace BlogPost.Infrustructure.DbContext
 
             modelBuilder.Entity<Article>()
                 .HasOne(p => p.ApplicationUser)
-                .WithMany(u => u.Posts)
+                .WithMany(u => u.Articles)
                 .HasForeignKey(p => p.ApplicationUserId);
 
             modelBuilder.Entity<Comment>()
                 .HasOne(c => c.ApplicationUser)
                 .WithMany(u => u.Comments)
                 .HasForeignKey(c => c.ApplicationUserId);
+
+            // Configure the UserLike entity relationships
+            modelBuilder.Entity<UserLike>()
+                .HasOne(ul => ul.User)
+                .WithMany(u => u.LikedArticles)
+                .HasForeignKey(ul => ul.UserId)
+                .OnDelete(DeleteBehavior.Cascade); // Cascade delete when a user is deleted
+
+            modelBuilder.Entity<UserLike>()
+                .HasOne(ul => ul.Article)
+                .WithMany(a => a.LikedArticles)
+                .HasForeignKey(ul => ul.ArticleId)
+                .OnDelete(DeleteBehavior.Restrict); // No cascading delete when an article is deleted
+
+
         }
     }
 }

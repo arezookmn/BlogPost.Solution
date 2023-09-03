@@ -18,7 +18,7 @@ namespace BlogPost.Core.Domain.Entities
 
 
         //navigation property
-        public Article? Post { get; set; }
+        public Article? Article { get; set; }
 
         //public Guid CommentAuthorID { get; set; }
 

@@ -4,19 +4,21 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
+using BlogPost.Core.DTO.ArticleDTO;
 using BlogPost.Core.ServiceContracts.ArticleServiceContracts;
 
 namespace BlogPost.WebApi.Controllers.PostControllers
 {
-    [Authorize(Roles = "Author")]
     [Route("api/[controller]")]
     [ApiController]
     public class ArticleController : ControllerBase
     {
         private readonly IArticleService _articleService;
-        public ArticleController(IArticleService articleService)
+        private readonly IArticleUserLikeService _articleUserLikeService;
+        public ArticleController(IArticleService articleService, IArticleUserLikeService userLikeService)
         {
             _articleService = articleService;
+            _articleUserLikeService = userLikeService;
         }
 
         [HttpPost]
@@ -47,5 +49,19 @@ namespace BlogPost.WebApi.Controllers.PostControllers
 
            else return false;
         }
+
+        [HttpPost("like/{articleId}")]
+        public async Task<ActionResult<UserLikeResponseDTO>> PostLikeArticle(Guid articleId)
+        {
+            ArticleResponseDTO articleResponse = await _articleService.GetArticleByIdAsync(articleId);
+            CreateUserLikeDTO userLike = new CreateUserLikeDTO()
+            {
+                UserId = articleResponse.ApplicationUserId,
+                ArticleId = articleId
+            };
+            UserLikeResponseDTO userLikeResponse = await _articleUserLikeService.CreateUserLike(userLike);
+
+            return Ok(userLikeResponse);
+        } 
     }
 }

@@ -22,6 +22,7 @@ namespace BlogPost.Core.DTO.PostDTO
         public int LikeCount { get; set; }
 
         public int TimeToRead { get; set; }
+        public Guid AuthorId { get; set; }
 
     }
 
@@ -41,7 +42,8 @@ namespace BlogPost.Core.DTO.PostDTO
                 CategoryID = post.CategoryID, 
                 LikeCount = post.LikeCount,
                 TimeToRead = post.TimeToRead,
-                ShortDescription = post.ShortDescription
+                ShortDescription = post.ShortDescription,
+                AuthorId = post.AuthorId
             };
         }
     }

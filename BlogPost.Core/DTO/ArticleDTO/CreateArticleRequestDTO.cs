@@ -28,6 +28,9 @@ namespace BlogPost.Core.DTO.PostDTO
         public int CategoryID { get; set; }
 
         public int TimeToRead { get; set; }
+
+        public Guid AuthorId { get; set; }
+
         public Article ToArticle()
         {
             return new Article
@@ -38,7 +41,8 @@ namespace BlogPost.Core.DTO.PostDTO
                 CommentAllowing = CommentAllowing,
                 CategoryID = CategoryID,
                 TimeToRead = TimeToRead,
-                ShortDescription = ShortDescription
+                ShortDescription = ShortDescription,
+                AuthorId = AuthorId
             };
         }
     }

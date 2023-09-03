@@ -96,7 +96,6 @@ namespace BlogPost.WebApi.Controllers.AccountController
         }
 
 
-
         private async Task<ActionResult<ApplicationUser>> RegisterUserOrAuthor(RegisterDTO registerDto, string roleName)
         {
             if (!ModelState.IsValid)

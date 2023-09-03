@@ -62,5 +62,12 @@ namespace BlogPost.Infrustructure.Repository
             article.IsDeleted = true;
             await _dbContext.SaveChangesAsync();
         }
+
+        public async Task<UserLike> AddUserLike(UserLike userLike)
+        {
+            _dbContext.UserLikes.Add(userLike);
+            await _dbContext.SaveChangesAsync();
+            return userLike;
+        }
     }
 }

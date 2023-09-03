@@ -14,8 +14,10 @@ namespace BlogPost.Core.Domain.Entities.IdentityEntities
         public DateTime? RegistrationDate { get; set; }
 
 
-        public ICollection<Article> Posts { get; set; }
+        public ICollection<Article> Articles { get; set; }
         public ICollection<Comment> Comments { get; set; }
+        public ICollection<UserLike> LikedArticles { get; set; }
+
 
     }
 }
