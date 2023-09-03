@@ -69,5 +69,19 @@ namespace BlogPost.Infrustructure.Repository
             await _dbContext.SaveChangesAsync();
             return userLike;
         }
+
+        public async Task<List<UserLike>> GetUserLikeOfArticle(Guid articleId)
+        {
+            List<UserLike>  userLikes = await _dbContext.UserLikes.Where(a => a.ArticleId == articleId).ToListAsync();
+            return userLikes;
+        }
+
+        public async Task<bool> IsUserLikedArticle(Guid userId, Guid articleId)
+        {
+            bool isLiked = await _dbContext.UserLikes
+                .AnyAsync(ul => ul.UserId == userId && ul.ArticleId == articleId);
+
+            return isLiked;
+        }
     }
 }

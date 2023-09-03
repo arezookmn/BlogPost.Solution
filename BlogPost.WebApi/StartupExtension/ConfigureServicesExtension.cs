@@ -34,6 +34,7 @@ namespace BlogPost.WebApi.StartupExtension
             services.AddScoped<ICategoryAdminService, CategoryAdminService>();
             services.AddScoped<IArticleUserLikeService, ArticleUserLikeService>();
             services.AddTransient<IJwtService, JwtService>();
+            services.AddScoped<ICurrentUserDetails, CurrentUserDetail>();
             services.AddScoped<IArticleRepository, ArticleRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();

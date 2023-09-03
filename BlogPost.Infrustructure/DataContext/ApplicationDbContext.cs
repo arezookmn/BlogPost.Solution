@@ -49,7 +49,7 @@ namespace BlogPost.Infrustructure.DbContext
             modelBuilder.Entity<Article>()
                 .HasOne(p => p.ApplicationUser)
                 .WithMany(u => u.Articles)
-                .HasForeignKey(p => p.ApplicationUserId);
+                .HasForeignKey(p => p.AuthorId);
 
             modelBuilder.Entity<Comment>()
                 .HasOne(c => c.ApplicationUser)

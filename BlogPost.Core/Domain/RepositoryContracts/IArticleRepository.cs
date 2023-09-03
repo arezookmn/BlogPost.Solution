@@ -18,5 +18,7 @@ namespace BlogPost.Core.Domain.RepositoryContracts
         Task DeleteArticleAsync(Article article);
         Task SoftDeleteArticleAsync(Article article);
         Task<UserLike> AddUserLike(UserLike userLike);    
+        Task<List<UserLike>> GetUserLikeOfArticle(Guid articleId);
+        Task<bool> IsUserLikedArticle(Guid userId,Guid articleId);
     }
 }

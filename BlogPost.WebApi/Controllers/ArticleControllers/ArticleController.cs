@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using BlogPost.Core.DTO.ArticleDTO;
 using BlogPost.Core.ServiceContracts.ArticleServiceContracts;
+using BlogPost.Core.ServiceContracts.IdentityServiceContracts;
 
 namespace BlogPost.WebApi.Controllers.PostControllers
 {
@@ -15,13 +16,16 @@ namespace BlogPost.WebApi.Controllers.PostControllers
     {
         private readonly IArticleService _articleService;
         private readonly IArticleUserLikeService _articleUserLikeService;
-        public ArticleController(IArticleService articleService, IArticleUserLikeService userLikeService)
+        private readonly ICurrentUserDetails _currentUserDetails;
+        public ArticleController(IArticleService articleService, IArticleUserLikeService userLikeService, ICurrentUserDetails currentUserDetails)
         {
             _articleService = articleService;
             _articleUserLikeService = userLikeService;
+            _currentUserDetails = currentUserDetails;
         }
 
         [HttpPost]
+        [Authorize(Roles = "Author")]
         public async Task<ActionResult<ArticleResponseDTO>> PostArticle(CreateArticleRequestDTO articleRequestDto)
         {
             ArticleResponseDTO articleResponse_FromService = await  _articleService.CreateArticleAsync(articleRequestDto);
@@ -31,6 +35,7 @@ namespace BlogPost.WebApi.Controllers.PostControllers
 
 
         [HttpPut]
+        [Authorize(Roles = "Author")]
         public async Task<ActionResult<ArticleResponseDTO>> UpdateArticle(UpdateArticleRequestDTO articleRequestDto)
         {
             ArticleResponseDTO articleResponse_FromService = await _articleService.UpdateArticle(articleRequestDto);
@@ -39,6 +44,7 @@ namespace BlogPost.WebApi.Controllers.PostControllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Author")]
         public async Task<ActionResult<bool>> DeleteArticle(Guid articleId)
         {
            await _articleService.DeleteArticleAsync(articleId);
@@ -51,17 +57,32 @@ namespace BlogPost.WebApi.Controllers.PostControllers
         }
 
         [HttpPost("like/{articleId}")]
+        [Authorize(Roles = "User")]
         public async Task<ActionResult<UserLikeResponseDTO>> PostLikeArticle(Guid articleId)
         {
-            ArticleResponseDTO articleResponse = await _articleService.GetArticleByIdAsync(articleId);
-            CreateUserLikeDTO userLike = new CreateUserLikeDTO()
+            Guid userId = await _currentUserDetails.GetCurrentUserId();
+            if (await _articleUserLikeService.IsUserLikedArticle(userId,articleId))
             {
-                UserId = articleResponse.ApplicationUserId,
+                return Ok(); //todo:what did i do in that condition ,maybe nothing !
+            }
+                CreateUserLikeDTO userLike = new CreateUserLikeDTO()
+            {
+                UserId = userId,
                 ArticleId = articleId
             };
             UserLikeResponseDTO userLikeResponse = await _articleUserLikeService.CreateUserLike(userLike);
 
             return Ok(userLikeResponse);
-        } 
+        }
+
+        [HttpGet("likeCount/{articleId}")]
+        public async Task<ActionResult<int>> GetCountOfLikeArticle(Guid articleId)
+        {
+            int userLikeCount = await _articleUserLikeService.GetCountOfUserLikeOfSpecificArticle(articleId);
+
+            return Ok(userLikeCount);
+        }
     }
+
+ 
 }

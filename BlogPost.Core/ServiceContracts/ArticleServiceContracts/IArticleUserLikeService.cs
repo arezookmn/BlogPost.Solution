@@ -10,5 +10,9 @@ namespace BlogPost.Core.ServiceContracts.ArticleServiceContracts
     public interface IArticleUserLikeService
     {
         Task<UserLikeResponseDTO> CreateUserLike(CreateUserLikeDTO createUserLikeDto);
+        Task<List<UserLikeResponseDTO>> GetUserLikeOfSpecificArticle(Guid articleId);
+        Task<int> GetCountOfUserLikeOfSpecificArticle(Guid articleId);
+        Task<bool> IsUserLikedArticle(Guid userId, Guid articleId);
+
     }
 }
