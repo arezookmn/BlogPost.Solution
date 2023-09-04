@@ -29,7 +29,7 @@ namespace BlogPost.WebApi.Controllers.AccountController
 
 
         [HttpPost("login")]
-        public async Task<ActionResult<ApplicationUser>> PostLogin(LoginDTO loginDto)
+        public async Task<ActionResult<ApplicationUser>> PostLogin([FromBody]LoginDTO loginDto)
         {
             if (!ModelState.IsValid)
             {

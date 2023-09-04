@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BlogPost.Core.Domain.Entities;
+﻿using BlogPost.Core.Domain.Entities;
 using BlogPost.Core.Domain.RepositoryContracts;
 using BlogPost.Core.DTO.ArticleDTO;
-using BlogPost.Core.DTO.PostDTO;
 using BlogPost.Core.ServiceContracts.ArticleServiceContracts;
 using Services.Helper;
 
@@ -34,6 +28,19 @@ namespace BlogPost.Core.Service.ArticleService
             return userLikeResponse;
         }
 
+        public async Task<bool> DeleteUserLike(Guid userId, Guid articleId)
+        {
+            UserLike? userLike = await _articleRepository.GetUserLike(userId, articleId);
+
+            if (userLike == null)
+            {
+                return false; 
+            }
+
+            await _articleRepository.DeleteUserLike(userLike);
+            return true;
+        }
+
         public async Task<int> GetCountOfUserLikeOfSpecificArticle(Guid articleId)
         {
             List<UserLikeResponseDTO> userLikes = await GetUserLikeOfSpecificArticle(articleId);
@@ -56,5 +63,7 @@ namespace BlogPost.Core.Service.ArticleService
         {
            return await _articleRepository.IsUserLikedArticle(userId, articleId);
         }
+
+
     }
 }

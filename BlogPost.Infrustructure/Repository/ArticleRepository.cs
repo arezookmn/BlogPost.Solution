@@ -83,5 +83,17 @@ namespace BlogPost.Infrustructure.Repository
 
             return isLiked;
         }
+
+        public async Task DeleteUserLike(UserLike userLike)
+        {
+            _dbContext.UserLikes.Remove(userLike);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<UserLike?> GetUserLike(Guid userId, Guid articleId)
+        {
+            return await _dbContext.UserLikes.FirstOrDefaultAsync(u => u.ArticleId == articleId && u.UserId == userId);
+        }
+
     }
 }

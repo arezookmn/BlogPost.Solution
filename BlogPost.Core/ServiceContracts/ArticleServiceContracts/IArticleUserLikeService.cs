@@ -13,6 +13,7 @@ namespace BlogPost.Core.ServiceContracts.ArticleServiceContracts
         Task<List<UserLikeResponseDTO>> GetUserLikeOfSpecificArticle(Guid articleId);
         Task<int> GetCountOfUserLikeOfSpecificArticle(Guid articleId);
         Task<bool> IsUserLikedArticle(Guid userId, Guid articleId);
+        Task<bool> DeleteUserLike(Guid userId, Guid articleId);
 
     }
 }

@@ -20,5 +20,7 @@ namespace BlogPost.Core.Domain.RepositoryContracts
         Task<UserLike> AddUserLike(UserLike userLike);    
         Task<List<UserLike>> GetUserLikeOfArticle(Guid articleId);
         Task<bool> IsUserLikedArticle(Guid userId,Guid articleId);
+        Task DeleteUserLike(UserLike userLike);
+        Task<UserLike?> GetUserLike(Guid userId, Guid articleId);
     }
 }
