@@ -15,13 +15,7 @@ namespace BlogPost.Core.Domain.Entities
         public string? NameOfCommentAuthor { get; set; } = "Unknown";
         public bool IsDeleted { get; set; }
         public DateTime CreatedDate { get; set; }
-
-
-        //navigation property
-        public Article? Article { get; set; }
-
-        //public Guid CommentAuthorID { get; set; }
-
+        public Article Article { get; set; }
 
         public Guid ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }

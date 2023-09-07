@@ -4,6 +4,7 @@ using BlogPost.Infrustructure.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogPost.Infrustructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230907123709_setOnDeleteOnCommentAndArticle")]
+    partial class setOnDeleteOnCommentAndArticle
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -73,7 +76,7 @@ namespace BlogPost.Infrustructure.Migrations
 
                     b.HasIndex("CategoryID");
 
-                    b.ToTable("Articles", (string)null);
+                    b.ToTable("Articles");
                 });
 
             modelBuilder.Entity("BlogPost.Core.Domain.Entities.Author", b =>
@@ -97,7 +100,7 @@ namespace BlogPost.Infrustructure.Migrations
                     b.HasIndex("ApplicationUserId")
                         .IsUnique();
 
-                    b.ToTable("Authors", (string)null);
+                    b.ToTable("Authors");
                 });
 
             modelBuilder.Entity("BlogPost.Core.Domain.Entities.Category", b =>
@@ -118,7 +121,7 @@ namespace BlogPost.Infrustructure.Migrations
 
                     b.HasKey("CategoryID");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("BlogPost.Core.Domain.Entities.Comment", b =>
@@ -152,7 +155,7 @@ namespace BlogPost.Infrustructure.Migrations
 
                     b.HasIndex("ArticleID");
 
-                    b.ToTable("Comments", (string)null);
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("BlogPost.Core.Domain.Entities.IdentityEntities.ApplicationRole", b =>
@@ -280,7 +283,7 @@ namespace BlogPost.Infrustructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserLikes", (string)null);
+                    b.ToTable("UserLikes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>

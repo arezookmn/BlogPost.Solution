@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BlogPost.Core.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 
 namespace BlogPost.Core.Domain.Entities.IdentityEntities
@@ -13,10 +12,11 @@ namespace BlogPost.Core.Domain.Entities.IdentityEntities
         public string FullName { get; set; }
         public DateTime? RegistrationDate { get; set; }
 
+        public Guid? AuthorId { get; set; }
+        public Author Author { get; set; }
 
-        public ICollection<Article> Articles { get; set; }
-        public ICollection<Comment> Comments { get; set; }
-        public ICollection<UserLike> LikedArticles { get; set; }
+        public ICollection<Comment>? Comments { get; } = new List<Comment>();
+        public ICollection<UserLike>? LikedArticles { get; } = new List<UserLike>();
 
 
     }

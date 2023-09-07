@@ -4,6 +4,7 @@ using BlogPost.Infrustructure.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlogPost.Infrustructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230904124720_AddingAuthorTable")]
+    partial class AddingAuthorTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,6 +32,9 @@ namespace BlogPost.Infrustructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("AuthorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("AuthorId1")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("CategoryID")
@@ -71,9 +77,11 @@ namespace BlogPost.Infrustructure.Migrations
 
                     b.HasIndex("AuthorId");
 
+                    b.HasIndex("AuthorId1");
+
                     b.HasIndex("CategoryID");
 
-                    b.ToTable("Articles", (string)null);
+                    b.ToTable("Articles");
                 });
 
             modelBuilder.Entity("BlogPost.Core.Domain.Entities.Author", b =>
@@ -97,7 +105,22 @@ namespace BlogPost.Infrustructure.Migrations
                     b.HasIndex("ApplicationUserId")
                         .IsUnique();
 
-                    b.ToTable("Authors", (string)null);
+                    b.ToTable("Authors");
+                });
+
+            modelBuilder.Entity("BlogPost.Core.Domain.Entities.AuthorSkill", b =>
+                {
+                    b.Property<Guid>("AuthorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("SkillId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AuthorId", "SkillId");
+
+                    b.HasIndex("SkillId");
+
+                    b.ToTable("AuthorSkills");
                 });
 
             modelBuilder.Entity("BlogPost.Core.Domain.Entities.Category", b =>
@@ -118,7 +141,7 @@ namespace BlogPost.Infrustructure.Migrations
 
                     b.HasKey("CategoryID");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("BlogPost.Core.Domain.Entities.Comment", b =>
@@ -152,7 +175,7 @@ namespace BlogPost.Infrustructure.Migrations
 
                     b.HasIndex("ArticleID");
 
-                    b.ToTable("Comments", (string)null);
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("BlogPost.Core.Domain.Entities.IdentityEntities.ApplicationRole", b =>
@@ -259,6 +282,23 @@ namespace BlogPost.Infrustructure.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
+            modelBuilder.Entity("BlogPost.Core.Domain.Entities.Skill", b =>
+                {
+                    b.Property<int>("SkillId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SkillId"));
+
+                    b.Property<string>("SkillName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SkillId");
+
+                    b.ToTable("Skill");
+                });
+
             modelBuilder.Entity("BlogPost.Core.Domain.Entities.UserLike", b =>
                 {
                     b.Property<Guid>("UserLikeId")
@@ -280,7 +320,7 @@ namespace BlogPost.Infrustructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserLikes", (string)null);
+                    b.ToTable("UserLikes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -389,10 +429,14 @@ namespace BlogPost.Infrustructure.Migrations
             modelBuilder.Entity("BlogPost.Core.Domain.Entities.Article", b =>
                 {
                     b.HasOne("BlogPost.Core.Domain.Entities.Author", "Author")
-                        .WithMany("Articles")
+                        .WithMany()
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("BlogPost.Core.Domain.Entities.Author", null)
+                        .WithMany("Articles")
+                        .HasForeignKey("AuthorId1");
 
                     b.HasOne("BlogPost.Core.Domain.Entities.Category", "Category")
                         .WithMany("Articles")
@@ -409,9 +453,30 @@ namespace BlogPost.Infrustructure.Migrations
                 {
                     b.HasOne("BlogPost.Core.Domain.Entities.IdentityEntities.ApplicationUser", "ApplicationUser")
                         .WithOne("Author")
-                        .HasForeignKey("BlogPost.Core.Domain.Entities.Author", "ApplicationUserId");
+                        .HasForeignKey("BlogPost.Core.Domain.Entities.Author", "ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ApplicationUser");
+                });
+
+            modelBuilder.Entity("BlogPost.Core.Domain.Entities.AuthorSkill", b =>
+                {
+                    b.HasOne("BlogPost.Core.Domain.Entities.Author", "Author")
+                        .WithMany("Skills")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BlogPost.Core.Domain.Entities.Skill", "Skill")
+                        .WithMany()
+                        .HasForeignKey("SkillId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("Skill");
                 });
 
             modelBuilder.Entity("BlogPost.Core.Domain.Entities.Comment", b =>
@@ -424,9 +489,7 @@ namespace BlogPost.Infrustructure.Migrations
 
                     b.HasOne("BlogPost.Core.Domain.Entities.Article", "Article")
                         .WithMany("Comments")
-                        .HasForeignKey("ArticleID")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .HasForeignKey("ArticleID");
 
                     b.Navigation("ApplicationUser");
 
@@ -438,7 +501,7 @@ namespace BlogPost.Infrustructure.Migrations
                     b.HasOne("BlogPost.Core.Domain.Entities.Article", "Article")
                         .WithMany("LikedArticles")
                         .HasForeignKey("ArticleId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("BlogPost.Core.Domain.Entities.IdentityEntities.ApplicationUser", "User")
@@ -513,6 +576,8 @@ namespace BlogPost.Infrustructure.Migrations
             modelBuilder.Entity("BlogPost.Core.Domain.Entities.Author", b =>
                 {
                     b.Navigation("Articles");
+
+                    b.Navigation("Skills");
                 });
 
             modelBuilder.Entity("BlogPost.Core.Domain.Entities.Category", b =>
