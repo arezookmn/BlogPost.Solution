@@ -57,7 +57,7 @@ namespace BlogPost.WebApi.Controllers.PostControllers
         }
 
         [HttpPost("like/{articleId}")]
-        //[Authorize(Roles = "User")]
+        [Authorize(Roles = "User")]
         public async Task<ActionResult<UserLikeResponseDTO>> PostLikeArticle(Guid articleId)
         {
             Guid userId = await _currentUserDetails.GetCurrentUserId();
@@ -76,6 +76,7 @@ namespace BlogPost.WebApi.Controllers.PostControllers
         }
 
         [HttpGet("likeCount/{articleId}")]
+        [Authorize(Roles = "User")]
         public async Task<ActionResult<int>> GetCountOfLikeArticle(Guid articleId)
         {
             int userLikeCount = await _articleUserLikeService.GetCountOfUserLikeOfSpecificArticle(articleId);
@@ -85,6 +86,7 @@ namespace BlogPost.WebApi.Controllers.PostControllers
 
 
         [HttpDelete("like/{articleId}")]
+        [Authorize(Roles = "User")]
         public async Task<ActionResult<bool>> UnlikeArticle(Guid articleId)
         {
             Guid userId = await _currentUserDetails.GetCurrentUserId();

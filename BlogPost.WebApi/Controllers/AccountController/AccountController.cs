@@ -75,12 +75,12 @@ namespace BlogPost.WebApi.Controllers.AccountController
 
         }
 
-        [HttpGet]
-        public async Task<IActionResult> IsPhoneNumberAvailable(string phoneNumber)
-        {
-            var user = await _userManager.Users.FirstOrDefaultAsync(t => t.PhoneNumber == phoneNumber);
-            return Ok(user == null);
-        }
+        //[HttpGet]
+        //public async Task<IActionResult> IsPhoneNumberAvailable(string phoneNumber)
+        //{
+        //    var user = await _userManager.Users.FirstOrDefaultAsync(t => t.PhoneNumber == phoneNumber);
+        //    return Ok(user == null);
+        //}
 
         [HttpPost("register/user")]
         public async Task<ActionResult<ApplicationUser>> PostRegisterUser([FromBody] RegisterDTO registerDto)
