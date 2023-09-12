@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using BlogPost.Core.Exceptions;
 
 namespace Services.Helper
 {
@@ -13,7 +14,9 @@ namespace Services.Helper
                 (obj, validationContext, validationResults, true);
             if (!isValid)
             {
-                throw new ArgumentException();
+                string errorMessages = string.Join(Environment.NewLine, validationResults.Select(result => result.ErrorMessage));
+
+                throw new ArgumentValidationException($"Validation failed{errorMessages}" , obj);
             }
 
         }
