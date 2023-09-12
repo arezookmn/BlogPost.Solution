@@ -74,18 +74,18 @@ namespace BlogPost.Core.Service.ArticleService
 
         }
 
-        public async Task<ArticleResponseDTO> CreateArticleAsync(CreateArticleRequestDTO requestDto)
+        public async Task<ArticleResponseDTO> CreateArticleAsync(CreateArticleRequestDTO articleRequestDto)
         {
             try
             {
-                if (requestDto == null)
-                    throw new ArgumentNullException(nameof(requestDto), "Request can not be null");
+                if (articleRequestDto == null)
+                    throw new ArgumentNullException(nameof(articleRequestDto), "Request can not be null");
 
-                ValidationHelper.ModelValidation(requestDto);
+                ValidationHelper.ModelValidation(articleRequestDto);
 
                 //Business validation //todo:adding business validation for adding article, and throw custom business exception
                 //BusinessExceptions can inherit form validation exception
-                Article articleFromRequest = requestDto.ToArticle();
+                Article articleFromRequest = articleRequestDto.ToArticle();
 
                 articleFromRequest.ArticleID = Guid.NewGuid();
                 articleFromRequest.DateCreated = DateTime.UtcNow;
@@ -111,7 +111,7 @@ namespace BlogPost.Core.Service.ArticleService
             }
             catch (Exception ex)
             {
-                _logger.LogError($"An error occurred while Creating article  {requestDto}: {ex.Message}");
+                _logger.LogError($"An error occurred while Creating article  {articleRequestDto}: {ex.Message}");
                 throw new Exception("An error occurred while creating the article.");
             }
         }

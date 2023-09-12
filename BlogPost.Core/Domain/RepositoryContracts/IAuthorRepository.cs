@@ -12,6 +12,6 @@ namespace BlogPost.Core.Domain.RepositoryContracts
     {
         Task<Author> AddAuthor(Author author);
         Task<Author> UpdateAuthor(Author author);
-        Task<Author> GetAuthorById(Guid id);
+        Task<Author?> GetAuthorById(Guid id);
     }
 }

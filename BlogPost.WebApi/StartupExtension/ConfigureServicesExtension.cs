@@ -3,10 +3,12 @@ using System.Text.Unicode;
 using BlogPost.Core.Domain.Entities.IdentityEntities;
 using BlogPost.Core.Domain.RepositoryContracts;
 using BlogPost.Core.Service.ArticleService;
+using BlogPost.Core.Service.AuthorService;
 using BlogPost.Core.Service.CategoryServices;
 using BlogPost.Core.Service.CommentService;
 using BlogPost.Core.Service.IdentityService;
 using BlogPost.Core.ServiceContracts.ArticleServiceContracts;
+using BlogPost.Core.ServiceContracts.AuthorServiceContracts;
 using BlogPost.Core.ServiceContracts.CategoryServiceInterface;
 using BlogPost.Core.ServiceContracts.CommentServicesInterface;
 using BlogPost.Core.ServiceContracts.IdentityServiceContracts;
@@ -18,6 +20,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 
 namespace BlogPost.WebApi.StartupExtension
 {
@@ -34,11 +37,12 @@ namespace BlogPost.WebApi.StartupExtension
             services.AddScoped<ICategoryAdminService, CategoryAdminService>();
             services.AddScoped<IArticleUserLikeService, ArticleUserLikeService>();
             services.AddTransient<IJwtService, JwtService>();
+            services.AddScoped<IAuthorService, AuthorService>();
             services.AddScoped<ICurrentUserDetails, CurrentUserDetail>();
             services.AddScoped<IArticleRepository, ArticleRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
-
+            services.AddScoped<IAuthorRepository, AuthorRepository>();
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
 
@@ -87,7 +91,7 @@ namespace BlogPost.WebApi.StartupExtension
 
             });
 
-
+            services.AddLogging();
 
             services.AddCors(options =>
             {
