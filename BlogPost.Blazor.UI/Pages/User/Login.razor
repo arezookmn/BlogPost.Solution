@@ -1,0 +1,43 @@
+﻿@page "/login/user"
+@using Microsoft.AspNetCore.Components
+@inject NavigationManager _navigationManager
+@inject IAuthenticationService _AuthenticationService
+
+<h3> User Login</h3>
+
+<div class="card-body">
+    <EditForm Model="LoginModel" OnValidSubmit="@HandleLogin">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <InputText class="form-control" id="email" @bind-Value="LoginModel.Email" />
+            <ValidationMessage For="@(() => LoginModel.Email)" />
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <InputText class="form-control" id="password" type="password" @bind-Value="LoginModel.Password" />
+            <ValidationMessage For="@(() => LoginModel.Password)" />
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Login</button>
+    </EditForm>
+</div>
+
+
+@code {
+    LoginDTO LoginModel = new LoginDTO();
+
+    private async Task HandleLogin()
+    {
+
+        bool isAuthenticated = await _AuthenticationService.LoginAsync(LoginModel);
+
+        if(isAuthenticated)
+        _navigationManager.NavigateTo("/");
+    }
+}
+
+

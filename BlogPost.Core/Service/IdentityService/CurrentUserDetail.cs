@@ -42,7 +42,6 @@ namespace BlogPost.Core.Service.IdentityService
             }
 
             throw new InvalidOperationException("User ID not found or user is not authenticated.");
-
         }
     }
 }

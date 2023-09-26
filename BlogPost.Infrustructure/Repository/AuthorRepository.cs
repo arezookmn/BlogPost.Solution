@@ -20,7 +20,7 @@ namespace BlogPost.Infrustructure.Repository
         }
 
         public async Task<Author> AddAuthor(Author author)
-        {
+        { 
             await _dbContext.Authors.AddAsync(author);
             await _dbContext.SaveChangesAsync();
             return author;

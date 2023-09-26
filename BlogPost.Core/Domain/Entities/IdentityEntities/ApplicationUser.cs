@@ -13,7 +13,7 @@ namespace BlogPost.Core.Domain.Entities.IdentityEntities
         public DateTime? RegistrationDate { get; set; }
 
         public Guid? AuthorId { get; set; }
-        public Author Author { get; set; }
+        public Author? Author { get; set; }
 
         public ICollection<Comment>? Comments { get; } = new List<Comment>();
         public ICollection<UserLike>? LikedArticles { get; } = new List<UserLike>();

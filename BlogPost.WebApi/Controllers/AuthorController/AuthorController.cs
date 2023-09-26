@@ -1,6 +1,7 @@
 ﻿using BlogPost.Core.DTO.AuthorDTO;
 using BlogPost.Core.Exceptions;
 using BlogPost.Core.ServiceContracts.AuthorServiceContracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ namespace BlogPost.WebApi.Controllers.AuthorController
         }
 
         [HttpPost]
+        [Authorize(Roles = "Author")]
         public async Task<ActionResult<AuthorResponseDTO>> PostAuthor(CreateAuthorDTO createAuthorDto)
         {
             try

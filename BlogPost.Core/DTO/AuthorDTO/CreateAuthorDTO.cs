@@ -19,7 +19,7 @@ namespace BlogPost.Core.DTO.AuthorDTO
             return new Author()
             {
                 ProfileImageUrl = ProfileImageUrl,
-                ShortAbout = ShortAbout,
+                ShortAbout = ShortAbout
             };
         }
     }

@@ -1,0 +1,70 @@
+﻿@page "/register/user"
+@inject IAuthenticationService _AuthenticationService
+@inject NavigationManager _navigationManager
+
+<h3> User Register</h3>
+
+    <div class="card-body">
+    <EditForm Model="RegisterModel" OnValidSubmit="@HandleRegisteration">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <InputText class="form-control" id="fullName" @bind-Value="RegisterModel.FullName" />
+                <ValidationMessage For="@(() => RegisterModel.FullName)" />
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <InputText class="form-control" id="email" @bind-Value="RegisterModel.Email" />
+                <ValidationMessage For="@(() => RegisterModel.Email)" />
+            </div>
+
+            <div class="form-group">
+                <label for="phoneNumber">Phone Number</label>
+            <InputText class="form-control" id="phoneNumber" @bind-Value="RegisterModel.PhoneNumber" />
+                <ValidationMessage For="@(() => RegisterModel.PhoneNumber)" />
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <InputText class="form-control" id="password" type="password" @bind-Value="RegisterModel.Password" />
+                <ValidationMessage For="@(() => RegisterModel.Password)" />
+            </div>
+            
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <InputText class="form-control" id="confirmPassword" type="password" @bind-Value="RegisterModel.ConfirmPassword" />
+                <ValidationMessage For="@(() => RegisterModel.ConfirmPassword)" />
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3">Register</button>
+        </EditForm>
+    </div>
+    
+
+@code {
+    
+    RegisterDTO RegisterModel = new RegisterDTO()
+    {Role = "User"};
+
+
+    private async Task HandleRegisteration()
+    {
+        try
+        {
+            bool isUserRegistered = await _AuthenticationService.RegisterAsync(RegisterModel);
+            if (isUserRegistered == true)
+            {
+                _navigationManager.NavigateTo("/");
+            }
+        }
+        catch (ApiException ex)
+        {
+
+        }
+
+    }
+}
+

@@ -39,11 +39,12 @@ namespace BlogPost.Core.Service.AuthorService
                 ValidationHelper.ModelValidation(authorDto);
                 Guid currentUserId = await _currentUserDetails.GetCurrentUserId();
 
-                Author author = await _authorRepository.AddAuthor(authorDto.ToAuthor());
+                Author author = authorDto.ToAuthor();
                 author.AuthorId = Guid.NewGuid();
                 author.ApplicationUserId = currentUserId;
+                Author authorAdded = await _authorRepository.AddAuthor(author);
 
-                AuthorResponseDTO authorResponse = author.ToAuthorResponseDto();
+                AuthorResponseDTO authorResponse = authorAdded.ToAuthorResponseDto();
 
                 return authorResponse;
             }

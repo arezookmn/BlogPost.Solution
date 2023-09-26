@@ -15,7 +15,7 @@ namespace BlogPost.Core.Domain.Entities
         public string? ProfileImageUrl { get; set; }
         public string ShortAbout { get; set; }
         public Guid ApplicationUserId { get; set; }
-        public ApplicationUser ApplicationUser { get; set; }
+        public ApplicationUser ApplicationUser { get; set; } = null!;
         public ICollection<Article>? Articles { get; } = new List<Article>();
     }
 }

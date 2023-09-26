@@ -42,7 +42,8 @@ namespace BlogPost.Infrustructure.DbContext
                 .HasOne(a => a.Author)
                 .WithOne(u => u.ApplicationUser)
                 .HasForeignKey<Author>(a => a.ApplicationUserId)
-                .IsRequired(false);
+                .OnDelete(DeleteBehavior.NoAction)
+                .IsRequired();
 
             modelBuilder.Entity<Comment>()
                 .HasOne(c => c.Article)
